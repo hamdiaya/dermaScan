@@ -7,7 +7,7 @@ const NavBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="w-full fixed">
+    <nav className="w-full ">
       <div className="flex items-center justify-between pt-6 px-6 xl:pt-[24px] xl:px-[118px]">
         <div>
           <Image src="/logo.png" alt="logo" width={162} height={48} />

@@ -14,7 +14,7 @@ const Section3 = () => {
         <p className="text-center">Learn about common skin cancer types.</p>
       </div>
 
-      <div className="xl:flex xl:flex-row flex flex-col gap-[32px] w-full items-stretch justify-center px-[90px]">
+      <div className="xl:flex xl:flex-row flex flex-col gap-[32px] w-full items-stretch justify-center 2xl:px-[200px] md:px-[90px] px-[20px] ">
         {/* Left Column */}
         <div className="flex flex-col gap-[32px] ">
           <TypesCard
