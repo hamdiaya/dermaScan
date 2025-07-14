@@ -1,11 +1,10 @@
-import Card from "@/components/card";
-import NavBar from "@/components/navBar";
+
 import Section1 from "@/components/section1";
 import Section2 from "@/components/section2";
 import Section3 from "@/components/section3";
 import Section4 from "@/components/section4";
 import TakeCharge from "@/components/takeCharge";
-import Image from "next/image";
+
 
 export default function Home() {
   return (
