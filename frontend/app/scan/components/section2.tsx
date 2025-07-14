@@ -6,7 +6,10 @@ const Section2 = () => {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
   const [scanning, setScanning] = useState(false);
-  const [result, setResult] = useState<{ predicted_class: string; confidence: string } | null>(null);
+  const [result, setResult] = useState<{
+    predicted_class: string;
+    confidence: string;
+  } | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -99,10 +102,13 @@ const Section2 = () => {
                   </span>
                   {/* Image Preview */}
                   <div className="w-full flex justify-center my-2">
-                    <img
+                    <Image
                       src={URL.createObjectURL(uploadedFile)}
                       alt="Preview"
-                      className="max-h-[200px] rounded-lg border border-gray-300"
+                      width={200}
+                      height={200}
+                      className="rounded-lg border border-gray-300 object-contain max-h-[200px]"
+                      unoptimized
                     />
                   </div>
                 </>
@@ -138,10 +144,12 @@ const Section2 = () => {
           <div className="mt-8 w-full bg-[#F9FFF9] border border-[#2F7E82] rounded-lg p-6 text-center">
             <h2 className="text-xl font-bold text-[#2F7E82] mb-2">Result</h2>
             <p className="text-lg text-[#333]">
-              <span className="font-semibold">Class:</span> {result.predicted_class}
+              <span className="font-semibold">Class:</span>{" "}
+              {result.predicted_class}
             </p>
             <p className="text-lg text-[#333]">
-              <span className="font-semibold">Confidence:</span> {result.confidence}
+              <span className="font-semibold">Confidence:</span>{" "}
+              {result.confidence}
             </p>
           </div>
         )}
