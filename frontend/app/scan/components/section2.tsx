@@ -5,13 +5,15 @@ import React, { useRef, useState } from "react";
 const Section2 = () => {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
+  const [scanning, setScanning] = useState(false);
+  const [result, setResult] = useState<{ predicted_class: string; confidence: string } | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       setUploading(true);
-      // Simulate upload delay
+      setResult(null);
       setTimeout(() => {
         setUploadedFile(file);
         setUploading(false);
@@ -25,9 +27,32 @@ const Section2 = () => {
 
   const handleRemove = () => {
     setUploadedFile(null);
+    setResult(null);
   };
 
-  // For later: pass uploadedFile to endpoint
+  const handleScan = async () => {
+    if (!uploadedFile) return;
+    setScanning(true);
+    setResult(null);
+
+    const formData = new FormData();
+    formData.append("file", uploadedFile);
+
+    try {
+      const response = await fetch("http://127.0.0.1:8000/predict", {
+        method: "POST",
+        body: formData,
+      });
+      if (!response.ok) throw new Error("Failed to scan image");
+      const data = await response.json();
+      setResult(data);
+    } catch (error) {
+      console.log(error);
+      setResult({ predicted_class: "Error", confidence: "0%" });
+    } finally {
+      setScanning(false);
+    }
+  };
 
   return (
     <section className="bg-[#2F7E82] py-[60px] md:py-[120px] md:px-0 px-[10px] flex justify-center items-center min-h-screen">
@@ -62,16 +87,25 @@ const Section2 = () => {
               />
             </div>
           )}
-          {/* Loading and Uploaded UI */}
           {(uploading || uploadedFile) && (
             <div className="w-full flex flex-col items-center gap-2">
               <span className="text-[#2F7E82] font-semibold text-[18px]">
                 {uploading ? "Uploading..." : "Uploaded"}
               </span>
               {uploadedFile && (
-                <span className="text-[#333333] text-[16px]">
-                  {uploadedFile.name}
-                </span>
+                <>
+                  <span className="text-[#333333] text-[16px]">
+                    {uploadedFile.name}
+                  </span>
+                  {/* Image Preview */}
+                  <div className="w-full flex justify-center my-2">
+                    <img
+                      src={URL.createObjectURL(uploadedFile)}
+                      alt="Preview"
+                      className="max-h-[200px] rounded-lg border border-gray-300"
+                    />
+                  </div>
+                </>
               )}
               <div className="w-full flex items-center gap-2 mt-2">
                 <div className="flex-1 h-2 bg-[#2F7E82] rounded-full" />
@@ -87,18 +121,30 @@ const Section2 = () => {
               </div>
             </div>
           )}
-          <p className="text-[#676767] text-[15px] md:text-[19px]  mt-2 text-center">
+          <p className="text-[#676767] text-[15px] md:text-[19px] mt-2 text-center ">
             Supported formats: JPEG, PNG, GIF, MP4, PDF, PSD, AI, Word, PPT
           </p>
         </div>
         <button
           className={`bg-[#2F7E82] cursor-pointer w-full py-4 font-semibold text-[18px] md:text-[22px] rounded-lg mt-8 text-white transition-opacity ${
-            !uploadedFile ? "opacity-50 cursor-not-allowed" : ""
+            !uploadedFile || scanning ? "opacity-50 cursor-not-allowed" : ""
           }`}
-          disabled={!uploadedFile}
+          disabled={!uploadedFile || scanning}
+          onClick={handleScan}
         >
-          Scan Image
+          {scanning ? "Scanning..." : "Scan Image"}
         </button>
+        {result && (
+          <div className="mt-8 w-full bg-[#F9FFF9] border border-[#2F7E82] rounded-lg p-6 text-center">
+            <h2 className="text-xl font-bold text-[#2F7E82] mb-2">Result</h2>
+            <p className="text-lg text-[#333]">
+              <span className="font-semibold">Class:</span> {result.predicted_class}
+            </p>
+            <p className="text-lg text-[#333]">
+              <span className="font-semibold">Confidence:</span> {result.confidence}
+            </p>
+          </div>
+        )}
       </div>
     </section>
   );

@@ -2,6 +2,7 @@ import torch
 from fastapi import FastAPI, File, UploadFile
 from models.utils import load_model
 from preprocessing import preprocess_image
+from fastapi.middleware.cors import CORSMiddleware
 
 # Device setup
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -24,7 +25,14 @@ idx_to_label = {
 
 # FastAPI app
 app = FastAPI(title="Skin Disease Classifier API")
-
+# CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # You can restrict this to your frontend domain
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
     try:
