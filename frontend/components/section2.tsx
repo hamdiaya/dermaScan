@@ -51,18 +51,16 @@ const section2 = () => {
         </div>
         <div className="flex flex-col gap-[64px]">
           <Card
-            imgSrc={"/model_training.png"}
-            title={"Deep Learning Insights"}
+            imgSrc={"/upload.png"}
+            title={"User-Friendly Experience"}
             desc={
-              "The model learns from thousands of images to identify patterns associated with skin cancer."
-            }
+             "Our interface is designed for simplicity, making it easy for anyone to upload images."  }
           />
           <Card
-            imgSrc={"/layers_clear.png"}
-            title={"How It Works"}
+            imgSrc={"/cast.png"}
+            title={"Educational Purpose"}
             desc={
-              "Images are processed through layers of neural networks, enhancing detection accuracy and reliability."
-            }
+           "Remember, our tool is for educational use and does not replace professional medical advice."  }
           />
         </div>
       </div>
