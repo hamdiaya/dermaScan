@@ -10,7 +10,7 @@ const TakeCharge = () => {
         <h2 className="text-4xl font-bold mb-4">Take Charge of Your Skin</h2>
         <p className="text-lg pb-[36px]">Empower yourself with our AI tool to analyze skin lesions for educational insights. Remember, for a professional diagnosis, always consult a healthcare provider..</p>
        <Link
-            href="/"
+            href="/scan"
             className="text-center w-full text-[#3B9EA3] bg-white py-4  w-full sm:px-[110px] px-[30px] font-bold text-lg rounded-lg cursor-pointer"
           >
             <span >Try the Skin Cancer Checker</span>

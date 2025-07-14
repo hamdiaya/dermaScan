@@ -43,7 +43,7 @@ const section2 = () => {
             className="mb-[-32px]"
           />
           <Link
-            href="/"
+            href="/scan"
             className="text-center w-full bg-[#3B9EA3] py-4  w-full text-white font-bold text-lg rounded-lg cursor-pointer"
           >
             <span>Try the Skin Cancer Checker</span>
@@ -75,7 +75,7 @@ const section2 = () => {
           className="mb-[-32px]"
         />
         <Link
-          href="/"
+          href="/scan"
           className=" text-center w-full bg-[#3B9EA3] py-4  w-full text-white font-bold text-lg rounded-lg cursor-pointer"
         >
           <span className="">Try the Skin Cancer Checker</span>

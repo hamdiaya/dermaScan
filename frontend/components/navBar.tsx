@@ -20,9 +20,9 @@ const NavBar = () => {
           <Link href="/">Notice</Link>
         </div>
         {/* Desktop Button */}
-        <button className="hidden xl:block bg-[#3B9EA3] py-2 px-4 text-white font-bold text-lg rounded-lg cursor-pointer">
+        <Link href="/scan" className="hidden xl:block bg-[#3B9EA3] py-2 px-4 text-white font-bold text-lg rounded-lg cursor-pointer">
           Try the Skin Cancer Checker
-        </button>
+        </Link>
         {/* Burger Icon */}
         <button
           className="xl:hidden flex flex-col dark:text-white justify-center items-center w-10 h-10 cursor-pointer "
@@ -41,12 +41,12 @@ const NavBar = () => {
           <Link href="/" onClick={() => setMenuOpen(false)}>About Us</Link>
           <Link href="/" onClick={() => setMenuOpen(false)}>Awareness</Link>
           <Link href="/" onClick={() => setMenuOpen(false)}>Notice</Link>
-          <button
-            className="bg-[#3B9EA3] py-2 px-4 text-white font-bold text-lg rounded-lg mt-2 w-full cursor-pointer"
-            onClick={() => setMenuOpen(false)}
+          <Link
+            className="bg-[#3B9EA3] text-center py-2 px-4 text-white font-bold text-lg rounded-lg mt-2 w-full cursor-pointer"
+           href="/scan"
           >
             Try the Skin Cancer Checker
-          </button>
+          </Link>
         </div>
       )}
     </nav>
